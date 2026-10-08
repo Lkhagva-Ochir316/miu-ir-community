@@ -245,8 +245,8 @@
       return;
     }
     const shareData = {
-      title: 'MIU IR Community',
-      text: "Join the International Relations community at Mongolian International University.",
+      title: 'MIU IR COMMUNITY',
+      text: 'MIU IR COMMUNITY · Mongolian International University',
       url: window.location.href
     };
     try {
