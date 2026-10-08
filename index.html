@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <meta name="description" content="The campus community for Mongolian International University's International Relations department.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MIU IR Community">
+    <meta property="og:description" content="Meet the students and teachers of Mongolian International University's International Relations department.">
+    <meta property="og:url" content="https://lkhagva-ochir316.github.io/miu-ir-community/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MIU IR Community">
+    <meta name="twitter:description" content="Connect with Mongolian International University's International Relations department.">
+    <title>MIU IR Community | Mongolian International University</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main id="authScreen" class="auth-screen">
+      <section class="auth-card" aria-labelledby="authTitle">
+        <a class="auth-brand" href="#" aria-label="MIU IR Community">
+          <span class="brand-mark">M</span>
+          <span class="brand-copy"><strong>MIU <span>IR</span></strong><small>Campus community</small></span>
+        </a>
+        <div class="auth-heading">
+          <span class="section-kicker">MONGOLIAN INTERNATIONAL UNIVERSITY</span>
+          <h1 id="authTitle">Your IR community starts here.</h1>
+          <p id="authDescription">Sign in or create an account to meet your department and join the conversation.</p>
+        </div>
+        <div class="auth-tabs" role="tablist" aria-label="Account access">
+          <button class="auth-tab active" type="button" data-auth-mode="signin" role="tab" aria-selected="true">Sign in</button>
+          <button class="auth-tab" type="button" data-auth-mode="signup" role="tab" aria-selected="false">Create account</button>
+        </div>
+        <form id="signinForm" class="auth-form">
+          <label class="auth-field">Email address<input id="signinEmail" type="email" autocomplete="email" required maxlength="120" placeholder="you@miu.edu.mn"></label>
+          <label class="auth-field">Password<input id="signinPassword" type="password" autocomplete="current-password" required minlength="8" placeholder="At least 8 characters"></label>
+          <p class="auth-error" id="signinError" role="alert" hidden></p>
+          <button class="button button-primary auth-submit" type="submit">Sign in <span>→</span></button>
+          <p class="auth-switch">New to the community? <button type="button" data-auth-mode="signup">Create an account</button></p>
+        </form>
+        <form id="signupForm" class="auth-form" hidden>
+          <label class="auth-field">Full name<input id="signupName" autocomplete="name" required maxlength="60" placeholder="Your full name"></label>
+          <label class="auth-field">I am a<select id="signupRole"><option>Student</option><option>Teacher</option></select></label>
+          <label class="auth-field">Email address<input id="signupEmail" type="email" autocomplete="email" required maxlength="120" placeholder="you@miu.edu.mn"></label>
+          <label class="auth-field">Password<input id="signupPassword" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters"></label>
+          <p class="auth-storage-note">Demo accounts stay on this device. This is not a secure school login and does not sync to other devices.</p>
+          <p class="auth-error" id="signupError" role="alert" hidden></p>
+          <button class="button button-primary auth-submit" type="submit">Create account <span>→</span></button>
+          <p class="auth-switch">Already a member? <button type="button" data-auth-mode="signin">Sign in</button></p>
+        </form>
+        <p class="auth-footnote">International Relations · MIU</p>
+        <button class="share-link-button" id="shareAppLink" type="button">Share MIU IR Community</button>
+        <p class="share-link-help" id="shareLinkHelp" hidden></p>
+      </section>
+    </main>
+    <div id="communityApp" hidden>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="MIU IR Community home" data-page="feed">
+        <span class="brand-mark">M</span>
+        <span class="brand-copy"><strong>MIU <span>IR</span></strong><small>Campus community</small></span>
+      </a>
+      <label class="search-box">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.2 4.2"></path></svg>
+        <input id="searchInput" type="search" placeholder="Search people and posts..." aria-label="Search people and posts">
+        <kbd>/</kbd>
+      </label>
+      <div class="top-actions">
+        <button class="icon-button notification-button" aria-label="Notifications" title="Notifications">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
+          <span class="notification-dot"></span>
+        </button>
+        <button class="user-chip" id="currentUserButton" aria-label="Edit your profile"><span id="topAvatar"></span><span id="topUserName"></span><span class="chevron">⌄</span></button>
+        <button class="signout-button" id="signoutButton" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <div class="app-shell">
+      <aside class="left-sidebar">
+        <div class="department-label"><span class="online-dot"></span> MIU · International Relations</div>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <button class="nav-item active" data-page="feed"><span class="nav-icon">⌂</span> News feed</button>
+          <button class="nav-item" data-page="announcements"><span class="nav-icon">◉</span> Announcements <span class="nav-count" id="announcementCount">0</span></button>
+          <button class="nav-item" data-page="people"><span class="nav-icon">♙</span> People</button>
+        </nav>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-heading">YOUR COMMUNITY</div>
+        <button class="community-link" data-page="people"><span class="mini-people" id="miniPeople"></span><span>IR community</span><span class="more">···</span></button>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-note">
+          <span class="note-icon">✦</span>
+          <strong>A world of perspectives.</strong>
+          <p>Connect, share ideas, and stay close to what’s happening in IR.</p>
+          <button data-page="people">Meet your community <span>→</span></button>
+        </div>
+        <div class="sidebar-footer">A campus community for curious minds.<br><span>© MIU IR Community</span></div>
+      </aside>
+
+      <main class="main-content">
+        <div class="page-heading">
+          <div><div class="eyebrow" id="pageEyebrow">YOUR CAMPUS, CONNECTED</div><h1 id="pageTitle">News feed</h1><p id="pageDescription">A little closer to the people and ideas shaping our world.</p></div>
+          <button class="button button-primary" id="createButton"><span class="button-plus">＋</span><span id="createButtonText">Create post</span></button>
+        </div>
+
+        <div class="local-notice" role="status">
+          <span class="notice-icon">i</span>
+          <span><strong>Local demo</strong> · Your account, profile, posts, and photos stay in this browser only. There’s no school server or cross-device sync.</span>
+          <button id="dismissNotice" aria-label="Dismiss local demo notice">×</button>
+        </div>
+
+        <section id="feedPage">
+          <button class="composer-card" id="composerButton">
+            <span id="composerAvatar"></span>
+            <span class="composer-placeholder">What’s happening in your world?</span>
+            <span class="composer-photo"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"></rect><circle cx="8.5" cy="9" r="1.5"></circle><path d="m21 15-5-5L5 20"></path></svg><span>Photo</span></span>
+          </button>
+          <div class="feed-toolbar">
+            <div class="feed-tabs" role="tablist" aria-label="Feed filter">
+              <button class="feed-tab active" data-feed="all" role="tab" aria-selected="true">All updates</button>
+              <button class="feed-tab" data-feed="announcement" role="tab" aria-selected="false">Announcements</button>
+              <button class="feed-tab" data-feed="post" role="tab" aria-selected="false">Community</button>
+            </div>
+            <button class="sort-button" id="sortButton">Latest <span>⌄</span></button>
+          </div>
+          <div id="feedList" class="feed-list" aria-live="polite"></div>
+        </section>
+
+        <section id="peoplePage" class="people-page" hidden>
+          <div class="people-intro"><div><h2>Faces of IR</h2><p>Get to know the students and teachers in our community.</p></div><span class="people-total" id="peopleTotal">0 members</span></div>
+          <div class="people-filters">
+            <button class="people-filter active" data-role-filter="all">Everyone</button>
+            <button class="people-filter" data-role-filter="Student">Students</button>
+            <button class="people-filter" data-role-filter="Teacher">Teachers</button>
+          </div>
+          <div id="peopleGrid" class="people-grid"></div>
+        </section>
+      </main>
+
+      <aside class="right-sidebar">
+        <section class="welcome-card">
+          <div class="welcome-art" aria-hidden="true"><span class="sun"></span><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="art-star star-one">✳</span><span class="art-star star-two">✦</span><span class="art-world">IR</span></div>
+          <div class="welcome-copy"><span class="welcome-kicker">WELCOME TO MIU</span><h2>Big ideas.<br>Closer together.</h2><p>Your space to connect with the International Relations community.</p><button data-page="people">Explore your community <span>→</span></button></div>
+        </section>
+        <section class="right-section">
+          <div class="section-heading"><div><span class="section-kicker">ON THE RADAR</span><h2>Coming up</h2></div><button class="text-button" id="calendarButton">This week</button></div>
+          <div class="event-list">
+            <article class="event-item"><div class="event-date"><strong>18</strong><span>OCT</span></div><div><h3>IR Welcome Mixer</h3><p>Fri · 4:00 PM · Student Lounge</p><span class="event-tag tag-coral">MEET & CONNECT</span></div></article>
+            <article class="event-item"><div class="event-date date-lilac"><strong>22</strong><span>OCT</span></div><div><h3>Asia-Pacific in Focus</h3><p>Tue · 2:30 PM · Lecture Hall 2</p><span class="event-tag tag-lilac">GUEST TALK</span></div></article>
+            <article class="event-item"><div class="event-date date-mint"><strong>25</strong><span>OCT</span></div><div><h3>Model UN Workshop</h3><p>Fri · 3:00 PM · Room 304</p><span class="event-tag tag-mint">WORKSHOP</span></div></article>
+          </div>
+        </section>
+        <section class="right-section community-section">
+          <div class="section-heading"><div><span class="section-kicker">YOUR PEOPLE</span><h2>IR community</h2></div><button class="text-button" data-page="people">See all</button></div>
+          <div id="communityPeople"></div>
+        </section>
+        <footer class="right-footer">About · Community guidelines · Privacy<br>Made for the MIU IR community <span>✦</span></footer>
+      </aside>
+    </div>
+
+    <dialog id="createDialog" class="create-dialog">
+      <form id="createForm">
+        <div class="dialog-heading"><div><span class="section-kicker" id="dialogKicker">COMMUNITY</span><h2 id="dialogTitle">Share an update</h2></div><button class="close-button" type="button" id="closeDialog" aria-label="Close">×</button></div>
+        <div class="form-field" id="typeField"><label for="entryType">What would you like to create?</label><select id="entryType"><option value="post">Community post</option><option value="announcement">Announcement</option></select></div>
+        <div id="postFields">
+          <div class="posting-as"><span id="postingAvatar"></span><span>Posting as <strong id="postingName"></strong></span></div>
+          <div class="form-field"><label for="postBody">Your message</label><textarea id="postBody" rows="4" maxlength="1200" placeholder="Share an idea, a question, or a moment from campus..."></textarea></div>
+          <label class="upload-field" for="postImage"><span class="upload-icon">＋</span><span><strong>Add a photo</strong><small>JPG, PNG, GIF or WebP · up to 2 MB</small></span><input id="postImage" type="file" accept="image/png,image/jpeg,image/gif,image/webp"></label>
+          <div class="image-preview" id="postPreview" hidden></div>
+        </div>
+        <div id="profileFields" hidden>
+          <div class="form-row"><div class="form-field"><label for="profileName">Full name</label><input id="profileName" maxlength="60" placeholder="Your name"></div><div class="form-field"><label for="profileRole">I am a</label><select id="profileRole"><option>Student</option><option>Teacher</option></select></div></div>
+          <div class="form-row"><div class="form-field"><label for="profileFocus">Study / teaching area</label><input id="profileFocus" maxlength="60" placeholder="e.g. Diplomacy"></div><div class="form-field"><label for="profileYear">Year / title</label><input id="profileYear" maxlength="40" placeholder="e.g. Year 2"></div></div>
+          <div class="form-field"><label for="profileEmail">Email <span class="optional-label">optional</span></label><input id="profileEmail" type="email" maxlength="120" placeholder="you@miu.edu.mn"></div>
+          <div class="form-field"><label for="profileBio">A little about you</label><textarea id="profileBio" rows="3" maxlength="280" placeholder="What are you interested in?"></textarea></div>
+          <label class="upload-field" for="profileImage"><span class="upload-icon">＋</span><span><strong>Profile photo</strong><small>JPG, PNG, GIF or WebP · up to 2 MB</small></span><input id="profileImage" type="file" accept="image/png,image/jpeg,image/gif,image/webp"></label>
+          <div class="image-preview" id="profilePreview" hidden></div>
+        </div>
+        <p class="form-error" id="formError" role="alert" hidden></p>
+        <div class="dialog-actions"><span class="private-note">Saved on this device <span>ⓘ</span></span><button class="button button-primary" type="submit" id="submitButton">Share post <span>→</span></button></div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+  </body>
+</html>
