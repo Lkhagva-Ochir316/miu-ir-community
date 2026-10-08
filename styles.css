@@ -178,6 +178,14 @@ h1, h2, h3, p { margin-top: 0; }
 .person-card .person-contact { display: inline-block; padding: 6px 10px; border-radius: 5px; background: #f0f5f3; color: #4d887f; font-size: 8px; text-decoration: none; font-weight: 700; }
 .person-card .person-contact.disabled { color: #a0a6b0; background: #f5f6f8; }
 .person-delete { position: absolute; top: 7px; right: 7px; border: 0; background: transparent; color: #a1a7b1; font-size: 14px; padding: 3px 5px; }
+.profile-photo-trigger { width: 67px; height: 67px; margin: 0 auto 9px; padding: 6px; display: grid; place-items: center; border: 0; border-radius: 50%; background: #f0f5f3; cursor: zoom-in; touch-action: manipulation; transition: transform .16s ease, box-shadow .16s ease; }
+.profile-photo-trigger .avatar { width: 55px; height: 55px; font-size: 14px; }
+.profile-photo-trigger:hover, .profile-photo-trigger:focus-visible { transform: scale(1.06); box-shadow: 0 4px 14px #377f7830; }
+.profile-photo-dialog { width: min(88vw, 520px); max-width: 520px; max-height: 88dvh; padding: 24px 20px 17px; overflow: visible; border: 0; border-radius: 14px; text-align: center; background: #fff; box-shadow: 0 20px 70px #1018205c; }
+.profile-photo-dialog::backdrop { background: #14201fcc; backdrop-filter: blur(3px); }
+.profile-photo-dialog img { display: block; width: min(72vw, 420px); height: min(72vw, 420px); max-height: 68dvh; object-fit: contain; margin: 0 auto; border-radius: 9px; background: #f6f7f8; }
+.profile-photo-dialog p { color: #4b5664; font: 700 14px var(--serif); margin: 12px 0 0; }
+.photo-dialog-close { position: absolute; top: -12px; right: -12px; z-index: 1; width: 40px; height: 40px; padding: 0; border: 2px solid #fff; border-radius: 50%; background: #fff; color: #4b5864; box-shadow: 0 3px 14px #10182036; font-size: 25px; line-height: 1; touch-action: manipulation; }
 .create-dialog { width: min(500px, calc(100% - 30px)); max-height: min(85vh, 760px); padding: 0; border: 0; border-radius: 12px; box-shadow: 0 20px 70px #1d293940; color: var(--ink); }
 .create-dialog::backdrop { background: #202a3680; backdrop-filter: blur(2px); }
 .create-dialog form { padding: 23px 25px 20px; overflow: auto; max-height: inherit; }
@@ -302,6 +310,11 @@ h1, h2, h3, p { margin-top: 0; }
   .form-field input, .form-field select { min-height: 44px; }
   .form-field textarea { min-height: 92px; }
   .people-filter { min-height: 38px; font-size: 10px; }
+  .profile-photo-trigger { width: 75px; height: 75px; }
+  .profile-photo-trigger .avatar { width: 63px; height: 63px; }
+  .profile-photo-dialog { width: calc(100vw - 32px); max-height: 86dvh; padding: 18px 12px 14px; border-radius: 12px; }
+  .profile-photo-dialog img { width: min(78vw, 420px); height: min(78vw, 420px); max-height: 70dvh; }
+  .photo-dialog-close { width: 44px; height: 44px; top: -9px; right: -6px; }
   .composer-photo { font-size: 0; }
   .composer-photo svg { width: 19px; height: 19px; }
 }

@@ -8,9 +8,9 @@ Open `index.html` in a modern browser. No build step or dependency installation 
 
 ## Public link
 
-**[MIU IR COMMUNITY](https://lkhagva-ochir316.github.io/miu-ir-community/)**
+**[MIU IR COMMUNITY](https://tinyurl.com/miu-ir-community)**
 
-GitHub Pages deployment is defined in `.github/workflows/deploy-pages.yml` and publishes this app-only repository from `main`. The `Angel` repository remains private. The public deployment source is intentionally limited to the website files in this repository.
+The branded share link redirects to the public site. GitHub Pages deployment is defined in `.github/workflows/deploy-pages.yml` and publishes this app-only repository from `main`. The `Angel` repository remains private. The public deployment source is intentionally limited to the website files in this repository.
 
 ## Accounts and storage
 

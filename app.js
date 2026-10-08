@@ -3,6 +3,7 @@
 
   const STORAGE_KEY = 'miu-ir-community-v1';
   const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
+  const PUBLIC_SHARE_URL = 'https://tinyurl.com/miu-ir-community';
   const demoProfileIds = new Set(['maya-chen', 'bat-erdene', 'saraa-altan', 'temuulen-b']);
   const emptyData = () => ({ accounts: [], currentUserId: '', profiles: [], posts: [] });
   const colorClasses = ['teal', 'lilac', 'peach', 'blue'];
@@ -53,6 +54,21 @@
     if (profile?.image) return `<img class="avatar ${extraClass}" src="${esc(profile.image)}" alt="${label}">`;
     const color = colorClasses.includes(profile?.color) ? profile.color : 'teal';
     return `<span class="avatar avatar-${color} ${extraClass}" aria-label="${label}">${esc(profile?.initials || initials(profile?.name || 'MI'))}</span>`;
+  }
+
+  function profilePhotoButton(profile) {
+    return `<button class="profile-photo-trigger" type="button" data-action="view-profile-photo" data-id="${esc(profile.id)}" aria-label="View ${esc(profile.name)}'s profile picture">${avatarMarkup(profile)}</button>`;
+  }
+
+  function openProfilePhoto(profile) {
+    if (!profile?.image) {
+      showToast(`${profile?.name || 'This member'} hasn’t added a profile picture yet.`);
+      return;
+    }
+    byId('largeProfilePhoto').src = profile.image;
+    byId('largeProfilePhoto').alt = `${profile.name}'s profile picture`;
+    byId('largeProfileName').textContent = profile.name;
+    byId('profilePhotoDialog').showModal();
   }
 
   function displayDate(value) {
@@ -128,7 +144,7 @@
       return matchesRole && matchesSearch;
     });
     byId('peopleTotal').textContent = `${state.data.profiles.length} ${state.data.profiles.length === 1 ? 'member' : 'members'}`;
-    byId('peopleGrid').innerHTML = people.length ? people.map(profile => `<article class="person-card">${avatarMarkup(profile)}<h3>${esc(profile.name)}</h3><span class="person-role">${esc(profile.role)}${profile.year ? ` · ${esc(profile.year)}` : ''}</span><p class="person-focus">${esc(profile.focus || 'International Relations')}</p><p class="person-bio">${esc(profile.bio || 'Part of the MIU International Relations community.')}</p>${profile.email ? `<a class="person-contact" href="mailto:${esc(profile.email)}">Say hello ↗</a>` : '<span class="person-contact disabled">MIU IR member</span>'}${profile.id === currentProfile()?.id ? '<button class="person-delete" data-action="edit-profile" aria-label="Edit your profile">✎</button>' : ''}</article>`).join('') : `<div class="empty-state"><div class="empty-illustration">♙</div><h3>${state.search ? 'No members found' : 'Introduce yourself'}</h3><p>${state.search ? 'Try a different search.' : 'Your profile will appear here once you add a few details.'}</p><button class="button button-primary" data-action="edit-profile">Complete your profile <span>→</span></button></div>`;
+    byId('peopleGrid').innerHTML = people.length ? people.map(profile => `<article class="person-card">${profilePhotoButton(profile)}<h3>${esc(profile.name)}</h3><span class="person-role">${esc(profile.role)}${profile.year ? ` · ${esc(profile.year)}` : ''}</span><p class="person-focus">${esc(profile.focus || 'International Relations')}</p><p class="person-bio">${esc(profile.bio || 'Part of the MIU International Relations community.')}</p>${profile.email ? `<a class="person-contact" href="mailto:${esc(profile.email)}">Say hello ↗</a>` : '<span class="person-contact disabled">MIU IR member</span>'}${profile.id === currentProfile()?.id ? '<button class="person-delete" data-action="edit-profile" aria-label="Edit your profile">✎</button>' : ''}</article>`).join('') : `<div class="empty-state"><div class="empty-illustration">♙</div><h3>${state.search ? 'No members found' : 'Introduce yourself'}</h3><p>${state.search ? 'Try a different search.' : 'Your profile will appear here once you add a few details.'}</p><button class="button button-primary" data-action="edit-profile">Complete your profile <span>→</span></button></div>`;
   }
 
   function setPage(page) {
@@ -247,7 +263,7 @@
     const shareData = {
       title: 'MIU IR COMMUNITY',
       text: 'MIU IR COMMUNITY · Mongolian International University',
-      url: window.location.href
+      url: canShareCurrentPage() ? PUBLIC_SHARE_URL : window.location.href
     };
     try {
       if (navigator.share) {
@@ -413,6 +429,10 @@
     }
   });
   byId('closeDialog').addEventListener('click', () => byId('createDialog').close());
+  byId('closeProfilePhoto').addEventListener('click', () => byId('profilePhotoDialog').close());
+  byId('profilePhotoDialog').addEventListener('click', event => {
+    if (event.target === byId('profilePhotoDialog')) byId('profilePhotoDialog').close();
+  });
   byId('entryType').addEventListener('change', syncFormType);
   byId('createForm').addEventListener('submit', submitForm);
   byId('signinForm').addEventListener('submit', signIn);
@@ -455,7 +475,9 @@
     }
     const action = event.target.closest('[data-action]');
     if (!action) return;
-    if (action.dataset.action === 'edit-profile') {
+    if (action.dataset.action === 'view-profile-photo') {
+      openProfilePhoto(profileById(action.dataset.id));
+    } else if (action.dataset.action === 'edit-profile') {
       openDialog('profile');
     } else if (action.dataset.action === 'like') {
       const post = state.data.posts.find(item => item.id === action.dataset.id);
