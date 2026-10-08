@@ -28,13 +28,14 @@
           <h1 id="authTitle">Your IR community starts here.</h1>
           <p id="authDescription">Sign in or create an account to meet your department and join the conversation.</p>
         </div>
-        <div class="auth-tabs" role="tablist" aria-label="Account access">
+        <div class="auth-tabs" id="authTabs" role="tablist" aria-label="Account access">
           <button class="auth-tab active" type="button" data-auth-mode="signin" role="tab" aria-selected="true">Sign in</button>
           <button class="auth-tab" type="button" data-auth-mode="signup" role="tab" aria-selected="false">Create account</button>
         </div>
         <form id="signinForm" class="auth-form">
           <label class="auth-field">Email address<input id="signinEmail" type="email" autocomplete="email" required maxlength="120" placeholder="you@miu.edu.mn"></label>
           <label class="auth-field">Password<input id="signinPassword" type="password" autocomplete="current-password" required minlength="8" placeholder="At least 8 characters"></label>
+          <button class="forgot-password-link" id="showRecovery" type="button">Can’t remember your password?</button>
           <p class="auth-error" id="signinError" role="alert" hidden></p>
           <button class="button button-primary auth-submit" type="submit">Sign in <span>→</span></button>
           <p class="auth-switch">New to the community? <button type="button" data-auth-mode="signup">Create an account</button></p>
@@ -49,6 +50,17 @@
           <button class="button button-primary auth-submit" type="submit">Create account <span>→</span></button>
           <p class="auth-switch">Already a member? <button type="button" data-auth-mode="signin">Sign in</button></p>
         </form>
+        <section id="passwordRecovery" class="password-recovery" aria-labelledby="recoveryTitle" hidden>
+          <h2 id="recoveryTitle">Password recovery</h2>
+          <p>Enter the email you used to sign up. We’ll check whether email recovery is available.</p>
+          <form id="recoveryForm" class="auth-form">
+            <label class="auth-field">Email address<input id="recoveryEmail" type="email" autocomplete="email" required maxlength="120" placeholder="you@miu.edu.mn"></label>
+            <p class="auth-error" id="recoveryNotice" role="alert" hidden></p>
+            <button class="button button-primary auth-submit" type="submit">Check recovery options</button>
+          </form>
+          <p class="recovery-limitation">Email resets aren’t set up yet. Accounts are stored only in the browser where they were created; this site currently has no email service to send a reset link. No password or email will be sent.</p>
+          <button class="recovery-back" id="backToSignin" type="button">← Back to sign in</button>
+        </section>
         <p class="auth-footnote">International Relations · MIU</p>
         <button class="share-link-button" id="shareAppLink" type="button">Share MIU IR COMMUNITY</button>
         <p class="share-link-help" id="shareLinkHelp" hidden></p>
