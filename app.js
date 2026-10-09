@@ -291,6 +291,11 @@
     const name = byId('signupName').value.trim();
     const email = byId('signupEmail').value.trim().toLowerCase();
     const password = byId('signupPassword').value;
+    if (!/^[0-9]{4}$/.test(password)) {
+      byId('signupError').textContent = 'Choose exactly four digits (0–9) for your PIN.';
+      byId('signupError').hidden = false;
+      return;
+    }
     if (state.data.accounts.some(account => account.email.toLowerCase() === email)) {
       byId('signupError').textContent = 'An account with that email already exists on this device. Sign in instead.';
       byId('signupError').hidden = false;
@@ -299,7 +304,7 @@
     try {
       const salt = crypto.getRandomValues(new Uint8Array(16));
       const id = `account-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-      const account = { id, email, salt: bytesToBase64(salt), passwordHash: await hashPassword(password, salt), profileId: id };
+      const account = { id, email, salt: bytesToBase64(salt), passwordHash: await hashPassword(password, salt), profileId: id, pinVersion: 1 };
       const profile = {
         id,
         ownerId: id,
@@ -340,6 +345,7 @@
     const account = state.data.accounts.find(item => item.email.toLowerCase() === email);
     try {
       if (!account) throw new Error('Email or password is incorrect.');
+      if (account.pinVersion === 1 && !/^[0-9]{4}$/.test(password)) throw new Error('Enter your 4-digit PIN.');
       const digest = await hashPassword(password, base64ToBytes(account.salt));
       if (!hashesMatch(digest, account.passwordHash)) throw new Error('Email or password is incorrect.');
       state.data.currentUserId = account.id;
@@ -438,6 +444,9 @@
   byId('createForm').addEventListener('submit', submitForm);
   byId('signinForm').addEventListener('submit', signIn);
   byId('signupForm').addEventListener('submit', signUp);
+  byId('signupPassword').addEventListener('input', event => {
+    event.currentTarget.value = event.currentTarget.value.replace(/[^0-9]/g, '').slice(0, 4);
+  });
   byId('shareAppLink').addEventListener('click', shareAppLink);
   document.querySelectorAll('[data-auth-mode]').forEach(button => button.addEventListener('click', () => setAuthMode(button.dataset.authMode)));
   byId('postImage').addEventListener('change', event => previewImage(event.currentTarget, byId('postPreview')));

@@ -34,7 +34,8 @@
         </div>
         <form id="signinForm" class="auth-form">
           <label class="auth-field">Email address<input id="signinEmail" type="email" autocomplete="email" required maxlength="120" placeholder="you@miu.edu.mn"></label>
-          <label class="auth-field">Password<input id="signinPassword" type="password" autocomplete="current-password" required minlength="8" placeholder="At least 8 characters"></label>
+          <label class="auth-field">Password<input id="signinPassword" type="password" inputmode="numeric" autocomplete="current-password" required placeholder="Your 4-digit PIN"></label>
+          <p class="auth-storage-note">New accounts use a 4-digit PIN. If you already had an account, you can still use your previous password.</p>
           <p class="auth-error" id="signinError" role="alert" hidden></p>
           <button class="button button-primary auth-submit" type="submit">Sign in <span>→</span></button>
           <p class="auth-switch">New to the community? <button type="button" data-auth-mode="signup">Create an account</button></p>
@@ -43,14 +44,14 @@
           <label class="auth-field">Full name<input id="signupName" autocomplete="name" required maxlength="60" placeholder="Your full name"></label>
           <label class="auth-field">I am a<select id="signupRole"><option>Student</option><option>Teacher</option></select></label>
           <label class="auth-field">Email address<input id="signupEmail" type="email" autocomplete="email" required maxlength="120" placeholder="you@miu.edu.mn"></label>
-          <label class="auth-field">Password<input id="signupPassword" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters"></label>
-          <p class="auth-storage-note">Demo accounts stay on this device. This is not a secure school login and does not sync to other devices.</p>
+          <label class="auth-field">4-digit PIN<input id="signupPassword" type="password" inputmode="numeric" autocomplete="new-password" required minlength="4" maxlength="4" pattern="[0-9]{4}" title="Enter exactly four digits (0–9)." placeholder="Enter four digits"></label>
+          <p class="auth-storage-note">Choose exactly four digits (0–9). A 4-digit PIN is easy to guess, so do not reuse a PIN you use elsewhere. Demo accounts stay on this device and do not sync.</p>
           <p class="auth-error" id="signupError" role="alert" hidden></p>
           <button class="button button-primary auth-submit" type="submit">Create account <span>→</span></button>
           <p class="auth-switch">Already a member? <button type="button" data-auth-mode="signin">Sign in</button></p>
         </form>
         <aside class="password-reminder" role="note">
-          <strong>Remember your password</strong>
+          <strong>Remember your PIN</strong>
           <span>If you forget it, there is no way to recover it or restore access to that account. This app cannot send password-reset emails.</span>
         </aside>
         <p class="auth-footnote">International Relations · MIU</p>
@@ -108,7 +109,7 @@
 
         <div class="local-notice" role="status">
           <span class="notice-icon">i</span>
-          <span><strong>Local demo</strong> · Your account, profile, posts, and photos stay in this browser only. There’s no school server or cross-device sync. Remember your password: if you forget it, account access cannot be restored.</span>
+          <span><strong>Local demo</strong> · Your account, profile, posts, and photos stay in this browser only. There’s no school server or cross-device sync. Remember your PIN or password: if you forget it, account access cannot be restored.</span>
           <button id="dismissNotice" aria-label="Dismiss local demo notice">×</button>
         </div>
 
