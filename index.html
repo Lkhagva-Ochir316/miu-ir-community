@@ -35,7 +35,6 @@
         <form id="signinForm" class="auth-form">
           <label class="auth-field">Email address<input id="signinEmail" type="email" autocomplete="email" required maxlength="120" placeholder="you@miu.edu.mn"></label>
           <label class="auth-field">Password<input id="signinPassword" type="password" autocomplete="current-password" required minlength="8" placeholder="At least 8 characters"></label>
-          <button class="forgot-password-link" id="showRecovery" type="button">Can’t remember your password?</button>
           <p class="auth-error" id="signinError" role="alert" hidden></p>
           <button class="button button-primary auth-submit" type="submit">Sign in <span>→</span></button>
           <p class="auth-switch">New to the community? <button type="button" data-auth-mode="signup">Create an account</button></p>
@@ -50,17 +49,10 @@
           <button class="button button-primary auth-submit" type="submit">Create account <span>→</span></button>
           <p class="auth-switch">Already a member? <button type="button" data-auth-mode="signin">Sign in</button></p>
         </form>
-        <section id="passwordRecovery" class="password-recovery" aria-labelledby="recoveryTitle" hidden>
-          <h2 id="recoveryTitle">Password recovery</h2>
-          <p>Email password resets aren’t available yet. This demo has no mail service, so entering an email here will not send anything.</p>
-          <form id="recoveryForm" class="auth-form">
-            <label class="auth-field">Email address<input id="recoveryEmail" type="email" autocomplete="email" required maxlength="120" placeholder="you@miu.edu.mn"></label>
-            <p class="auth-error" id="recoveryNotice" role="alert" hidden></p>
-            <button class="button button-primary auth-submit" type="submit">Check recovery options</button>
-          </form>
-          <p class="recovery-limitation">Email resets aren’t set up yet. Accounts are stored only in the browser where they were created; this site currently has no email service to send a reset link. No password or email will be sent.</p>
-          <button class="recovery-back" id="backToSignin" type="button">← Back to sign in</button>
-        </section>
+        <aside class="password-reminder" role="note">
+          <strong>Remember your password</strong>
+          <span>If you forget it, there is no way to recover it or restore access to that account. This app cannot send password-reset emails.</span>
+        </aside>
         <p class="auth-footnote">International Relations · MIU</p>
         <button class="share-link-button" id="shareAppLink" type="button">Share MIU IR COMMUNITY</button>
         <p class="share-link-help" id="shareLinkHelp" hidden></p>
@@ -116,7 +108,7 @@
 
         <div class="local-notice" role="status">
           <span class="notice-icon">i</span>
-          <span><strong>Local demo</strong> · Your account, profile, posts, and photos stay in this browser only. There’s no school server or cross-device sync.</span>
+          <span><strong>Local demo</strong> · Your account, profile, posts, and photos stay in this browser only. There’s no school server or cross-device sync. Remember your password: if you forget it, account access cannot be restored.</span>
           <button id="dismissNotice" aria-label="Dismiss local demo notice">×</button>
         </div>
 

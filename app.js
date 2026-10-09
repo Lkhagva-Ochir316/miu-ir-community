@@ -239,7 +239,6 @@
     const signup = mode === 'signup';
     byId('signinForm').hidden = signup;
     byId('signupForm').hidden = !signup;
-    byId('passwordRecovery').hidden = true;
     byId('authTabs').hidden = false;
     byId('authTitle').textContent = signup ? 'Join your IR community.' : 'Your IR community starts here.';
     byId('authDescription').textContent = signup ? 'Create your account, introduce yourself, and meet the department.' : 'Sign in or create an account to meet your department and join the conversation.';
@@ -249,22 +248,6 @@
       if (button.classList.contains('auth-tab')) button.setAttribute('aria-selected', String(active));
     });
     byId(signup ? 'signupName' : 'signinEmail').focus();
-  }
-
-  function showPasswordRecovery() {
-    byId('signinForm').hidden = true;
-    byId('signupForm').hidden = true;
-    byId('authTabs').hidden = true;
-    byId('passwordRecovery').hidden = false;
-    byId('recoveryNotice').hidden = true;
-    byId('recoveryEmail').value = byId('signinEmail').value.trim();
-    byId('recoveryEmail').focus();
-  }
-
-  function explainPasswordRecovery(event) {
-    event.preventDefault();
-    byId('recoveryNotice').textContent = 'Email recovery is not available yet: the app has no server or email service connected, so no reset link was sent.';
-    byId('recoveryNotice').hidden = false;
   }
 
   function canShareCurrentPage() {
@@ -455,9 +438,6 @@
   byId('createForm').addEventListener('submit', submitForm);
   byId('signinForm').addEventListener('submit', signIn);
   byId('signupForm').addEventListener('submit', signUp);
-  byId('recoveryForm').addEventListener('submit', explainPasswordRecovery);
-  byId('showRecovery').addEventListener('click', showPasswordRecovery);
-  byId('backToSignin').addEventListener('click', () => setAuthMode('signin'));
   byId('shareAppLink').addEventListener('click', shareAppLink);
   document.querySelectorAll('[data-auth-mode]').forEach(button => button.addEventListener('click', () => setAuthMode(button.dataset.authMode)));
   byId('postImage').addEventListener('change', event => previewImage(event.currentTarget, byId('postPreview')));
